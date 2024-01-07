@@ -1,5 +1,6 @@
 import cv2
 import os
+import pickle
 
 #Setting the camera number that you are using and the height/width because we are going to use graphics later on
 capture = cv2.VideoCapture(0)
@@ -14,10 +15,15 @@ screenBg = cv2.imread('Resources/background.png')
 modeFolderPath = 'Resources/Modes'
 modePathList = os.listdir(modeFolderPath)
 #initialize the list of modes
-
 imgModeList = []
 for path in modePathList:
     imgModeList.append(cv2.imread(os.path.join(modeFolderPath, path)))
+
+
+#load the encodings file
+
+file = open("EncodingsFile.p", 'rb')
+encodeListKnownWithIds = pickle.load(file)
 
 
 #This is the standard code to run your webcam
