@@ -40,12 +40,12 @@ print("Encoding Started...")
 #saves all new/unknown image encodings into the known encoding list by looping through our student image list
 encodeListKnown = findEncodings(studentImageList)
 
-encodeListKnownIds = [encodeListKnown, studentIds]
+encodeListKnownWithIds = [encodeListKnown, studentIds]
 
 print("Encoding Completed.")
 
 file = open("EncodingsFile.p", 'wb')
-pickle.dump(encodeListKnownIds, file)
+pickle.dump(encodeListKnownWithIds, file)
 file.close()
 
 print("File Saved.")
