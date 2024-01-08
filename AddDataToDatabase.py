@@ -12,7 +12,7 @@ ref = db.reference('Students')
 data = {
     "tp012345":{
         "name": "Shi Yuqi",
-        "major": "Physical Education",
+        "major": "PE",
         "starting_year": 2017,
         "total_attendance": 6,
         "standing": "A+",
@@ -30,7 +30,7 @@ data = {
     },
     "tp063338":{
         "name": "Dalton Gan",
-        "major": "Software Engineering",
+        "major": "SE",
         "starting_year": 2024,
         "total_attendance": 100,
         "standing": "A++",
@@ -39,7 +39,7 @@ data = {
     },
     "tp068713":{
         "name": "Suzanne Lai",
-        "major": "Artifical Intelligence",
+        "major": "AI",
         "starting_year": 2022,
         "total_attendance": 50,
         "standing": "A",
@@ -54,6 +54,15 @@ data = {
         "standing": "A+",
         "year": 1,
         "last_attendance_time": "2024-01-09 06:06:06"
+    },
+    "tp011111":{
+        "name": "Wen Han",
+        "major": "AI",
+        "starting_year": 2022,
+        "total_attendance": 10,
+        "standing": "A",
+        "year": 2,
+        "last_attendance_time": "2024-01-08 15:22:06"
     },
     
     

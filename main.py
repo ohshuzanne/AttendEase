@@ -8,12 +8,15 @@ import firebase_admin
 from firebase_admin import db
 from firebase_admin import storage
 from firebase_admin import credentials
+import numpy as np
 
 cred = credentials.Certificate("serviceAccountKey.json")
 firebase_admin.initialize_app(cred, {
     'databaseURL': "https://attendease-ec204-default-rtdb.firebaseio.com/",
     'storageBucket': "attendease-ec204.appspot.com"
 })
+
+bucket = storage.bucket()
 
 # Setting the camera number that you are using and the height/width because we are going to use graphics later on
 capture = cv2.VideoCapture(0)
@@ -42,6 +45,7 @@ encodeListKnown, studentIds = encodeListKnownWithIds
 modeType = 0
 cntr = 0
 id = 0
+studentIdImage = []
 
 
 # This is the standard code to run your webcam
@@ -79,32 +83,61 @@ while True:
                 print(studentInfo)
                 cntr = 1
                 modeType = 1
+
             break
+
         else:
             print("Not a registered student. Please register yourself at the admin's office.")
             continue
     if cntr != 0:
+
+        
         if cntr == 1:
+            #get image from storage
+                blob = bucket.get_blob(f'Images/{id}.png')
+                array = np.frombuffer(blob.download_as_string(), np.uint8)
+                #converting the image to a format that can be read by cv2
+                studentIdImage = cv2.imdecode(array,cv2.COLOR_BGRA2BGR)
+
+                #update student data
+                ref = db.reference(f'Students/{id}')
+                studentInfo['total_attendance'] += 1
+                ref.child('total_attendance').set(studentInfo['total_attendance'])
+
+        if 10<cntr<20:
+            modeType = 2
+        
+        screenBg[44:44 + 633, 808:808 + 414] = imgModeList[modeType]
+
+        if cntr <= 10:
             cv2.putText(screenBg, str(studentInfo['total_attendance']),(861,125),
                         cv2.FONT_HERSHEY_COMPLEX,1,(255,255,255),1)
             
-            cv2.putText(screenBg, str(studentInfo['name']),(808,445),
-                        cv2.FONT_HERSHEY_COMPLEX,1,(255,255,255),1)
-            
             cv2.putText(screenBg, str(studentInfo['major']),(1006,550),
-                        cv2.FONT_HERSHEY_COMPLEX,1,(255,255,255),1)
+                        cv2.FONT_HERSHEY_COMPLEX,0.5,(255,255,255),1)
             
-            cv2.putText(screenBg, str(studentInfo['id']),(1006,493),
-                        cv2.FONT_HERSHEY_COMPLEX,1,(255,255,255),1)
+            cv2.putText(screenBg, str(id),(1006,493),
+                        cv2.FONT_HERSHEY_COMPLEX,0.5,(255,255,255),1)
             
             cv2.putText(screenBg, str(studentInfo['standing']),(910,625),
-                        cv2.FONT_HERSHEY_COMPLEX,1,(255,255,255),1)
+                        cv2.FONT_HERSHEY_COMPLEX,0.6,(100,100,100),1)
             
             cv2.putText(screenBg, str(studentInfo['year']),(1025,625),
-                        cv2.FONT_HERSHEY_COMPLEX,1,(255,255,255),1)
+                        cv2.FONT_HERSHEY_COMPLEX,0.6,(100,100,100),1)
             
-            cv2.putText(screenBg, str(studentInfo['starting year']),(1125,625),
-                        cv2.FONT_HERSHEY_COMPLEX,1,(255,255,255),1)
+            cv2.putText(screenBg, str(studentInfo['starting_year']),(1125,625),
+                        cv2.FONT_HERSHEY_COMPLEX,0.6,(100,100,100),1)
+            
+            (width, height), _ = cv2.getTextSize(studentInfo['name'],cv2.FONT_HERSHEY_COMPLEX,1,1)
+
+            #we are using a double // because that gets rid of trailing float numbers
+            center_offset = (414 - width)//2
+            cv2.putText(screenBg, str(studentInfo['name']),(808 + center_offset,445),
+                        cv2.FONT_HERSHEY_COMPLEX,1,(50,50,50),1)
+            
+            screenBg[175:175 + 216, 909:909 + 216 ] = studentIdImage
+        
+        cntr += 1
 
 
     cv2.imshow("Face Attendance System", screenBg)
