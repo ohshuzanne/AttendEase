@@ -14,7 +14,7 @@ AttendEase is a computer vision project that utilizes libraries such as cv2, cvz
 - face-recognition
 - pickle
 
-## Sreenshots
+## Screenshots
 ![AttendEase UI](https://github.com/ohshuzanne/AttendEase/blob/main/Screenshots/AttendEase_UI.png?raw=true)
 
 ## License
