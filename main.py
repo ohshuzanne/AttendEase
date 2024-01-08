@@ -124,29 +124,29 @@ while True:
 
                 if cntr <= 10:
                     cv2.putText(screenBg, str(studentInfo['total_attendance']),(861,125),
-                                cv2.FONT_HERSHEY_COMPLEX,1,(255,255,255),1)
+                                cv2.FONT_HERSHEY_SIMPLEX,1,(255,255,255),1)
                     
                     cv2.putText(screenBg, str(studentInfo['major']),(1006,550),
-                                cv2.FONT_HERSHEY_COMPLEX,0.5,(255,255,255),1)
+                                cv2.FONT_HERSHEY_SIMPLEX,0.5,(255,255,255),1)
                     
                     cv2.putText(screenBg, str(id),(1006,493),
-                                cv2.FONT_HERSHEY_COMPLEX,0.5,(255,255,255),1)
+                                cv2.FONT_HERSHEY_SIMPLEX,0.5,(255,255,255),1)
                     
                     cv2.putText(screenBg, str(studentInfo['standing']),(910,625),
-                                cv2.FONT_HERSHEY_COMPLEX,0.6,(100,100,100),1)
+                                cv2.FONT_HERSHEY_SIMPLEX,0.6,(100,100,100),1)
                     
                     cv2.putText(screenBg, str(studentInfo['year']),(1025,625),
-                                cv2.FONT_HERSHEY_COMPLEX,0.6,(100,100,100),1)
+                                cv2.FONT_HERSHEY_SIMPLEX,0.6,(100,100,100),1)
                     
                     cv2.putText(screenBg, str(studentInfo['starting_year']),(1125,625),
-                                cv2.FONT_HERSHEY_COMPLEX,0.6,(100,100,100),1)
+                                cv2.FONT_HERSHEY_SIMPLEX,0.6,(100,100,100),1)
                     
-                    (width, height), _ = cv2.getTextSize(studentInfo['name'],cv2.FONT_HERSHEY_COMPLEX,1,1)
+                    (width, height), _ = cv2.getTextSize(studentInfo['name'],cv2.FONT_HERSHEY_SIMPLEX,1,1)
 
                     #we are using a double // because that gets rid of trailing float numbers
                     center_offset = (414 - width)//2
                     cv2.putText(screenBg, str(studentInfo['name']),(808 + center_offset,445),
-                                cv2.FONT_HERSHEY_COMPLEX,1,(50,50,50),1)
+                                cv2.FONT_HERSHEY_SIMPLEX,1,(50,50,50),1)
                     
                     screenBg[175:175 + 216, 909:909 + 216 ] = studentIdImage
             
@@ -163,6 +163,8 @@ while True:
         modeType = 0
         cntr = 0
 
-
     cv2.imshow("Face Attendance System", screenBg)
     cv2.waitKey(1)  # Delay is set to 1 millisecond
+
+capture.release()
+cv2.destroyAllWindows()
