@@ -1,0 +1,9 @@
+pip install these libraries o
+
+1. Have a C compiler (if you have Visual Studio installed you should be good to go)
+2. cmake
+3. dlib
+4. face-recognition
+5. cvzone
+6. numpy
+7. opencv-python
