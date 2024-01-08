@@ -168,5 +168,3 @@ while True:
     cv2.imshow("Face Attendance System", screenBg)
     cv2.waitKey(1)  # Delay is set to 1 millisecond
 
-capture.release()
-cv2.destroyAllWindows()
