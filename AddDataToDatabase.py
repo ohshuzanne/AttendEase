@@ -41,7 +41,7 @@ data = {
         "name": "Suzanne Lai",
         "major": "AI",
         "starting_year": 2022,
-        "total_attendance": 50,
+        "total_attendance": 10,
         "standing": "A",
         "year": 2,
         "last_attendance_time": "2024-01-02 15:09:02"
