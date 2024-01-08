@@ -2,6 +2,16 @@ import cv2
 import face_recognition
 import pickle
 import os 
+import firebase_admin
+from firebase_admin import db
+from firebase_admin import storage
+from firebase_admin import credentials
+
+cred = credentials.Certificate("serviceAccountKey.json")
+firebase_admin.initialize_app(cred, {
+    'databaseURL': "https://attendease-ec204-default-rtdb.firebaseio.com/",
+    'storageBucket': "attendease-ec204.appspot.com"
+})
 
 studentIds = []
 
@@ -15,6 +25,11 @@ for path in imagesPathList:
     studentImageList.append(cv2.imread(os.path.join(imagesFolderPath, path)))
     #splitting the id from the .jpeg then isolating it when printing
     studentIds.append(os.path.splitext(path)[0]) 
+
+    fileName = f'{imagesFolderPath}/{path}'
+    bucket = storage.bucket()
+    blob = bucket.blob(fileName)
+    blob.upload_from_filename(fileName)
 
 def findEncodings(imagesList):
     encodeList = []
