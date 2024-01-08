@@ -1,8 +1,6 @@
 # AttendEase
 AttendEase is a computer vision project that utilizes libraries such as cv2, cvzone, and face-recognition to create a simple but comprehensive system that marks students' attendance based on facial recognition.
 
-*NOTE: Account Key to Firebase is not included in this repo
-
 ## Features
 - Firebase real-time database connection to update the student's details without delay 
 - Encodings generator included to store and fetch known face encodings into a Firebase storage
