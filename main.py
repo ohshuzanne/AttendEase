@@ -1,4 +1,4 @@
-#full version with json package
+#HI THIS IS SUZANNE :D
 
 import cv2
 import os
